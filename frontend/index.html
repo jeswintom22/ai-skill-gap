@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI Skill Gap Analyzer</title>
+
+  <!-- Meta -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="AI-powered skill gap analysis and learning roadmap" />
+
+  <!-- Font (Igloo-style) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <main class="container">
+
+    <!-- =========================
+         Header / Hero
+    ========================== -->
+    <header>
+      <h1>AI Skill Gap Analyzer</h1>
+      <p>Know what to learn. Know why.</p>
+    </header>
+
+    <!-- =========================
+         Analyzer Card
+    ========================== -->
+    <section class="card">
+      <form id="analyzeForm">
+
+        <label for="resume">Resume (PDF)</label>
+        <input type="file" id="resume" accept=".pdf" required />
+
+        <label for="jobDesc">Job Description</label>
+        <textarea
+          id="jobDesc"
+          rows="6"
+          placeholder="Paste the full job description here..."
+          required
+        ></textarea>
+
+        <button type="submit">Analyze Skills</button>
+
+        <!-- Loading State -->
+        <div id="loading" class="loading hidden">
+          Analyzing your skills…
+        </div>
+
+      </form>
+    </section>
+
+    <!-- =========================
+         Results Section
+    ========================== -->
+    <section id="result" class="card hidden">
+      <div id="output"></div>
+    </section>
+
+  </main>
+
+  <!-- Script -->
+  <script src="app.js"></script>
+</body>
+</html>

@@ -99,72 +99,125 @@ Swagger UI for API testing
 ai-skill-gap/
 │
 ├── backend/
-│   ├── api.py
-│   ├── service.py
-│   ├── resume_parser.py
-│   ├── skill_extractor.py
-│   ├── job_analyzer.py
-│   ├── semantic_matcher.py
-│   ├── job_skill_extractor.py
-│   ├── skill_gap.py
-│   ├── roadmap_generator.py
-│   ├── ai_roadmap_generator.py
-│   └── requirements.txt
+│   ├── api.py                 # FastAPI app with CORS
+│   ├── service.py             # Main analysis orchestrator
+│   ├── resume_parser.py       # PDF text extraction
+│   ├── skill_extractor.py     # Rule-based skill extraction
+│   ├── job_analyzer.py        # Job description analysis
+│   ├── semantic_matcher.py    # ML-based semantic matching
+│   ├── job_skill_extractor.py # Hybrid job skill detection
+│   ├── skill_gap.py           # Weighted gap calculation
+│   ├── roadmap_generator.py   # Rule-based roadmap
+│   ├── ai_roadmap_generator.py # LLM-powered roadmap
+│   ├── requirements.txt       # Python dependencies
+│   └── test_*.py              # Unit tests
+│
+├── frontend/
+│   ├── index.html             # Main UI
+│   ├── app.js                 # Frontend logic
+│   └── styles.css             # Styling
 │
 ├── data/
-│   ├── skills.json
-│   ├── skill_weights.json
-│   └── job_descriptions/
+│   ├── skills.json            # Skill database
+│   ├── skill_weights.json     # Skill importance weights
+│   └── job_descriptions/      # Sample job descriptions
 │
 ├── .gitignore
 └── README.md
 
 ⚙️ Setup & Installation
-1️⃣ Clone Repository
-git clone https://github.com/jeswintom22/ai-skill-gap.git
-cd ai-skill-gap/backend
 
-2️⃣ Create Virtual Environment
+1️⃣ Clone Repository
+```bash
+git clone https://github.com/jeswintom22/ai-skill-gap.git
+cd ai-skill-gap
+```
+
+2️⃣ Backend Setup
+```bash
+cd backend
 python -m venv venv
 venv\Scripts\activate   # Windows
-
-3️⃣ Install Dependencies
+# source venv/bin/activate  # macOS/Linux
 pip install -r requirements.txt
+```
 
-4️⃣ Install & Run Ollama
+3️⃣ Install & Run Ollama (for AI Roadmap)
+```bash
+# Download and install Ollama from https://ollama.ai/
 ollama pull mistral
 ollama serve
+```
+
+4️⃣ Frontend Setup
+```bash
+cd ../frontend
+# No installation needed - just open index.html in browser
+# Or serve with any static server (e.g., python -m http.server 3000)
+```
 
 ▶️ Run the Application
+
+1. Start Backend:
+```bash
+cd backend
 uvicorn api:app --reload
+```
+Backend will run at: http://127.0.0.1:8000
 
+2. Open Frontend:
+- Open `frontend/index.html` in your browser
+- Or serve frontend: `cd frontend && python -m http.server 3000`
+- Access at: http://localhost:3000
 
-Open Swagger UI:
-
-http://127.0.0.1:8000/docs
+3. Test API:
+- Swagger UI: http://127.0.0.1:8000/docs
+- Redoc: http://127.0.0.1:8000/redoc
 
 🧪 API Usage
-Endpoint
-POST /analyze
 
-Inputs
+**Endpoint:** `POST /analyze`
 
-Resume (PDF upload)
+**Inputs:**
+- `resume`: PDF file upload
+- `job_description`: Text string
 
-Job Description (text)
-
-Output (JSON)
+**Output (JSON):**
+```json
 {
-  "user_skills": ["python", "sql"],
-  "job_skills": ["python", "django", "docker", "git", "linux", "sql"],
+  "user_skills": ["python", "sql", "machine learning"],
+  "job_skills": ["python", "django", "docker", "git", "linux", "sql", "kubernetes"],
   "analysis": {
-    "missing_skills": ["django", "docker", "git", "linux"],
-    "readiness_score": 41.67
+    "missing_skills": ["django", "docker", "git", "linux", "kubernetes"],
+    "readiness_score": 42.86
   },
-  "ai_roadmap": "Week 1-2: Django...\nWeek 3: Docker..."
+  "ai_roadmap": "Week 1: Learn Django basics and build a simple web app...\nWeek 2: Master Docker containerization...\n..."
 }
+```
 
-🧠 Why This Project Is Different
+**Frontend Usage:**
+1. Upload your resume (PDF)
+2. Paste job description
+3. Click "Analyze Skills"
+4. View readiness score, missing skills, and personalized 30-day roadmap
+
+� Testing
+
+Run unit tests:
+```bash
+cd backend
+python -m pytest test_*.py -v
+```
+
+Or run individual tests:
+```bash
+python test_resume.py
+python test_skill_gap.py
+python test_semantic.py
+# etc.
+```
+
+�🧠 Why This Project Is Different
 
 ❌ Not a black-box AI
 
