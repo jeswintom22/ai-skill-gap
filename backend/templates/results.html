@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Analysis Results - AI Skill Gap Analyzer</title>
+
+  <!-- Meta -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="AI-powered skill gap analysis results" />
+
+  <!-- Font (Igloo-style) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+
+  <main class="container">
+
+    <!-- =========================
+         Header / Hero
+    ========================== -->
+    <header>
+      <h1>Analysis Results</h1>
+      <p>Your personalized skill gap report</p>
+      <a href="/" class="back-link">← Back to Analyzer</a>
+    </header>
+
+    <!-- =========================
+         Results Section
+    ========================== -->
+    <section class="card">
+      {% if analysis %}
+      <div class="result-grid">
+        <div class="metric">
+          <span>Readiness Score</span>
+          <strong>{{ analysis.readiness_score }}%</strong>
+        </div>
+
+        <div class="metric">
+          <span>Missing Skills</span>
+          <strong>{{ analysis.missing_skills|join(", ") }}</strong>
+        </div>
+      </div>
+
+      <h3>Your Skills</h3>
+      <p>{{ user_skills|join(", ") }}</p>
+
+      <h3>Job Required Skills</h3>
+      <p>{{ job_skills|join(", ") }}</p>
+
+      <h3>30-Day Learning Roadmap</h3>
+      <div class="roadmap">
+        {% set lines = ai_roadmap.split('\n') %}
+        {% for line in lines %}
+          {% if line.strip() %}
+            {% if 'Week' in line %}
+              {% if not loop.first %}</div>{% endif %}
+              <div class="roadmap-card">
+                <h4>{{ line.strip() }}</h4>
+            {% else %}
+                <p>{{ line.strip() }}</p>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+        </div>
+      </div>
+      {% else %}
+      <p>No analysis data available. Please go back and try again.</p>
+      {% endif %}
+    </section>
+
+  </main>
+
+</body>
+</html>

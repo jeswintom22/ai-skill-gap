@@ -1,4 +1,7 @@
 import subprocess
+import logging
+
+logger = logging.getLogger(__name__)
 
 def generate_ai_roadmap(prioritized_skills, duration_days=30):
     skills_text = ", ".join(prioritized_skills)
@@ -17,12 +20,28 @@ Rules:
 - Keep it beginner friendly
 """
 
-    result = subprocess.run(
-        ["ollama", "run", "mistral"],
-        input=prompt,
-        text=True,
-        encoding="utf-8",
-        capture_output=True
-    )
+    try:
+        result = subprocess.run(
+            ["ollama", "run", "mistral"],
+            input=prompt,
+            text=True,
+            encoding="utf-8",
+            capture_output=True,
+            timeout=60  # Add timeout
+        )
 
-    return result.stdout
+        if result.returncode != 0:
+            logger.error(f"Ollama error: {result.stderr}")
+            return "Error: Could not generate AI roadmap. Please ensure Ollama is running."
+
+        return result.stdout.strip()
+
+    except subprocess.TimeoutExpired:
+        logger.error("Ollama request timed out")
+        return "Error: AI roadmap generation timed out."
+    except FileNotFoundError:
+        logger.error("Ollama not found")
+        return "Error: Ollama not installed or not in PATH."
+    except Exception as e:
+        logger.error(f"Unexpected error in AI roadmap generation: {e}")
+        return f"Error: {str(e)}"

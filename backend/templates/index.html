@@ -30,14 +30,15 @@
          Analyzer Card
     ========================== -->
     <section class="card">
-      <form id="analyzeForm">
+      <form id="analyzeForm" action="/analyze-form" method="post" enctype="multipart/form-data">
 
         <label for="resume">Resume (PDF)</label>
-        <input type="file" id="resume" accept=".pdf" required />
+        <input type="file" id="resume" name="resume" accept=".pdf" required />
 
         <label for="jobDesc">Job Description</label>
         <textarea
           id="jobDesc"
+          name="job_description"
           rows="6"
           placeholder="Paste the full job description here..."
           required
@@ -62,7 +63,5 @@
 
   </main>
 
-  <!-- Script -->
-  <script src="/static/app.js"></script>
 </body>
 </html>

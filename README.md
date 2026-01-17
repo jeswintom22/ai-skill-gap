@@ -154,17 +154,12 @@ This application follows FastAPI best practices with a modular structure:
 - **Dependencies**: Dependency injection for shared services
 - **Utils**: Helper functions and utilities
 
-## 🔧 Configuration
+## 🔧 Technical Notes
 
-Environment variables can be set in a `.env` file:
-
-```env
-APP_NAME=AI Skill Gap Analyzer
-VERSION=1.0.0
-OLLAMA_MODEL=mistral
-SKILLS_DB_PATH=../data/skills.json
-WEIGHTS_DB_PATH=../data/skill_weights.json
-```
+- **ML Dependencies:** Sentence-transformers and torch are lazy-loaded to prevent Windows DLL issues
+- **Error Handling:** Graceful fallbacks for missing Ollama or ML libraries
+- **File Uploads:** Uses multipart FormData for reliable file handling
+- **Navigation:** Server-side routing between analysis form and results page
 
 ⚙️ Setup & Installation
 
@@ -207,13 +202,13 @@ uvicorn api:app --reload
 
 2. Open the UI:
 - Visit: `http://127.0.0.1:8000`
-- The web interface loads automatically
-- API endpoints available at `http://127.0.0.1:8000/docs`
+- Upload resume and job description
+- View results at: `http://127.0.0.1:8000/results`
 
-3. Test End-to-End:
-- Upload a PDF resume
-- Paste job description
-- Get instant skill gap analysis and AI roadmap!
+3. API Endpoints:
+- `POST /analyze` - JSON API for analysis
+- `POST /analyze-form` - Form submission for web UI
+- `GET /health` - Health check
 
 🧪 API Usage
 

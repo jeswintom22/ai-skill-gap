@@ -38,6 +38,18 @@ header p {
   font-size: 15px;
 }
 
+.back-link {
+  display: inline-block;
+  margin-top: 10px;
+  color: #111;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
 /* =========================
    Card
 ========================= */

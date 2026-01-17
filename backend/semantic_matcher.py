@@ -1,13 +1,19 @@
-from sentence_transformers import SentenceTransformer
-from sklearn.metrics.pairwise import cosine_similarity
 import re
-
-model = SentenceTransformer("all-MiniLM-L6-v2")
 
 def split_into_sentences(text):
     return [s.strip() for s in re.split(r"[.\n]", text) if s.strip()]
 
 def semantic_skill_match(job_text: str, skills_db: dict, threshold=0.5):
+    # Lazy import to avoid DLL issues at startup
+    try:
+        from sentence_transformers import SentenceTransformer
+        from sklearn.metrics.pairwise import cosine_similarity
+    except ImportError as e:
+        raise ImportError(f"ML dependencies not available: {e}")
+
+    # Load model only when needed
+    model = SentenceTransformer("all-MiniLM-L6-v2")
+
     sentences = split_into_sentences(job_text)
     sentence_embeddings = model.encode(sentences)
 
