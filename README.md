@@ -99,7 +99,7 @@ Swagger UI for API testing
 ai-skill-gap/
 │
 ├── backend/
-│   ├── api.py                 # FastAPI app with CORS
+│   ├── api.py                 # FastAPI app with integrated frontend
 │   ├── service.py             # Main analysis orchestrator
 │   ├── resume_parser.py       # PDF text extraction
 │   ├── skill_extractor.py     # Rule-based skill extraction
@@ -110,12 +110,12 @@ ai-skill-gap/
 │   ├── roadmap_generator.py   # Rule-based roadmap
 │   ├── ai_roadmap_generator.py # LLM-powered roadmap
 │   ├── requirements.txt       # Python dependencies
+│   ├── templates/             # Jinja2 HTML templates
+│   │   └── index.html
+│   ├── static/                # CSS and JS files
+│   │   ├── styles.css
+│   │   └── app.js
 │   └── test_*.py              # Unit tests
-│
-├── frontend/
-│   ├── index.html             # Main UI
-│   ├── app.js                 # Frontend logic
-│   └── styles.css             # Styling
 │
 ├── data/
 │   ├── skills.json            # Skill database
@@ -158,21 +158,21 @@ cd ../frontend
 
 ▶️ Run the Application
 
-1. Start Backend:
+1. Start the Full-Stack App:
 ```bash
 cd backend
 uvicorn api:app --reload
 ```
-Backend will run at: http://127.0.0.1:8000
 
-2. Open Frontend:
-- Open `frontend/index.html` in your browser
-- Or serve frontend: `cd frontend && python -m http.server 3000`
-- Access at: http://localhost:3000
+2. Open the UI:
+- Visit: `http://127.0.0.1:8000`
+- The web interface loads automatically
+- API endpoints available at `http://127.0.0.1:8000/docs`
 
-3. Test API:
-- Swagger UI: http://127.0.0.1:8000/docs
-- Redoc: http://127.0.0.1:8000/redoc
+3. Test End-to-End:
+- Upload a PDF resume
+- Paste job description
+- Get instant skill gap analysis and AI roadmap!
 
 🧪 API Usage
 
