@@ -1,7 +1,8 @@
-import pdfplumber
 import os
 
 def extract_text_from_pdf(pdf_path: str) -> str:
+    import pdfplumber
+    
     if not os.path.exists(pdf_path):
         raise FileNotFoundError(f"Resume file not found: {pdf_path}")
 

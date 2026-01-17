@@ -1,6 +1,3 @@
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
-
 def analyze_job_description(job_text: str, skills_db: dict):
     job_text = job_text.lower()
     required_skills = set()
@@ -11,10 +8,13 @@ def analyze_job_description(job_text: str, skills_db: dict):
                 required_skills.add(skill)
 
     return list(required_skills)
-    
+
 
 
 def calculate_similarity(resume_text, job_text):
+    from sklearn.feature_extraction.text import TfidfVectorizer
+    from sklearn.metrics.pairwise import cosine_similarity
+    
     vectorizer = TfidfVectorizer()
     vectors = vectorizer.fit_transform([resume_text, job_text])
     similarity = cosine_similarity(vectors[0:1], vectors[1:2])
