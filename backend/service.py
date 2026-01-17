@@ -5,10 +5,10 @@ from skill_gap import load_skill_weights, calculate_weighted_skill_gap
 from roadmap_generator import prioritize_skills
 from ai_roadmap_generator import generate_ai_roadmap
 
-def analyze_candidate(resume_path, job_text):
+def analyze_candidate(resume_path, job_text, skills_db_path="../data/skills.json", weights_db_path="../data/skill_weights.json"):
     # Load databases
-    skills_db = load_skills("../data/skills.json")
-    weights = load_skill_weights("../data/skill_weights.json")
+    skills_db = load_skills(skills_db_path)
+    weights = load_skill_weights(weights_db_path)
 
     # Resume → skills
     resume_text = extract_text_from_pdf(resume_path)

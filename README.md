@@ -99,7 +99,8 @@ Swagger UI for API testing
 ai-skill-gap/
 │
 ├── backend/
-│   ├── api.py                 # FastAPI app with integrated frontend
+│   ├── api.py                 # FastAPI app entry point
+│   ├── main.py                # Alternative entry point
 │   ├── service.py             # Main analysis orchestrator
 │   ├── resume_parser.py       # PDF text extraction
 │   ├── skill_extractor.py     # Rule-based skill extraction
@@ -115,6 +116,24 @@ ai-skill-gap/
 │   ├── static/                # CSS and JS files
 │   │   ├── styles.css
 │   │   └── app.js
+│   ├── app/                   # FastAPI application package
+│   │   ├── __init__.py
+│   │   ├── main.py            # FastAPI app instance
+│   │   ├── routers/
+│   │   │   ├── __init__.py
+│   │   │   └── analyze.py     # Analysis endpoints
+│   │   ├── models/
+│   │   │   ├── __init__.py
+│   │   │   └── schemas.py     # Pydantic models
+│   │   ├── core/
+│   │   │   ├── __init__.py
+│   │   │   ├── config.py      # Settings & configuration
+│   │   │   └── logging.py     # Logging configuration
+│   │   ├── dependencies/
+│   │   │   ├── __init__.py
+│   │   │   └── config.py      # Dependency injection
+│   │   └── utils/
+│   │       └── __init__.py
 │   └── test_*.py              # Unit tests
 │
 ├── data/
@@ -124,6 +143,28 @@ ai-skill-gap/
 │
 ├── .gitignore
 └── README.md
+
+## 🏗️ Architecture
+
+This application follows FastAPI best practices with a modular structure:
+
+- **Routers**: API endpoints organized by functionality
+- **Models**: Pydantic schemas for request/response validation
+- **Core**: Configuration, logging, and shared components
+- **Dependencies**: Dependency injection for shared services
+- **Utils**: Helper functions and utilities
+
+## 🔧 Configuration
+
+Environment variables can be set in a `.env` file:
+
+```env
+APP_NAME=AI Skill Gap Analyzer
+VERSION=1.0.0
+OLLAMA_MODEL=mistral
+SKILLS_DB_PATH=../data/skills.json
+WEIGHTS_DB_PATH=../data/skill_weights.json
+```
 
 ⚙️ Setup & Installation
 
