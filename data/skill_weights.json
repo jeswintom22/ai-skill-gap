@@ -1,0 +1,8 @@
+{
+  "python": 3,
+  "django": 3,
+  "sql": 2,
+  "docker": 2,
+  "linux": 1,
+  "git": 1
+}

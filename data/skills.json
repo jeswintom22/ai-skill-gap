@@ -1,0 +1,14 @@
+{
+  "programming_languages": [
+    "python", "java", "c++", "javascript", "sql"
+  ],
+  "frameworks": [
+    "django", "flask", "fastapi", "react", "node.js"
+  ],
+  "tools": [
+    "git", "docker", "kubernetes", "linux"
+  ],
+  "databases": [
+    "mysql", "postgresql", "mongodb"
+  ]
+}
